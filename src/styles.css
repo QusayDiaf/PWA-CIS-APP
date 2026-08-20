@@ -1,0 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'tailwindcss';
+    body{ font-family:'Tajawal', sans-serif; } 
+    .font-display{ font-family:'Cairo', sans-serif; }
+    .msym{ font-family:'Material Symbols Outlined'; font-weight:400; font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; line-height:1; }

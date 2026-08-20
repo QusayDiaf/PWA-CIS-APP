@@ -1,0 +1,136 @@
+<body class="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-[#EDF4F3]">
+
+  <!-- ============ Branding panel ============ -->
+  <aside class="hidden lg:flex relative overflow-hidden flex-col justify-between p-12 bg-gradient-to-br from-[#132D48] to-[#0B2036] text-white">
+    <div class="absolute w-[380px] h-[380px] rounded-full -top-32 -right-24 pointer-events-none bg-[radial-gradient(circle,rgba(14,156,144,.35),transparent_70%)]"></div>
+    
+    <div class="relative z-10 flex items-center gap-5">
+      <div class="w-20 h-20 rounded-2xl flex items-center justify-center font-display font-extrabold text-lg bg-gradient-to-br from-[#12B3A4] to-[#0A6E66]">
+        <img src="assets/icons/minimalist-geometric-logo-icon-for-an-academic-mob.svg" alt="لوجو جدولي" class="w-full h-full object-contain rounded-xl" />
+      </div>
+      <div>
+        <div class="font-display font-extrabold text-[25px] pb-2">جدولي</div>
+        <span class="inline-block mt-0.5 text-[15px] font-extrabold text-[#7EE0D3] bg-white/10 px-2 py-0.5 rounded-md">jadwali</span>
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-[420px]">
+      <h1 class="font-display font-extrabold text-[30px] leading-[1.4] mb-4">
+        نظّم مسارك الأكاديمي في مكان واحد
+      </h1>
+      <p class="text-[#A9C1CB] text-sm leading-7 mb-7">
+        تابع مهامك، جدولك المحاضراتي، وتنبيهاتك بكل سهولة من أي جهاز.
+      </p>
+
+      <ul class="flex flex-col gap-3.5">
+        <li class="flex items-center gap-3 text-[13.5px] font-medium text-[#E4EEF0]">
+          <span class="msym w-6.5 h-6.5 rounded-lg bg-[#0E9C90]/25 text-[#5CE0D0] flex items-center justify-center text-sm shrink-0">check</span>
+          إدارة المهام والواجبات بحسب الأولوية
+        </li>
+        <li class="flex items-center gap-3 text-[13.5px] font-medium text-[#E4EEF0]">
+          <span class="msym w-6.5 h-6.5 rounded-lg bg-[#0E9C90]/25 text-[#5CE0D0] flex items-center justify-center text-sm shrink-0">check</span>
+          جدول محاضرات تفاعلي أسبوعي ويومي
+        </li>
+        <li class="flex items-center gap-3 text-[13.5px] font-medium text-[#E4EEF0]">
+          <span class="msym w-6.5 h-6.5 rounded-lg bg-[#0E9C90]/25 text-[#5CE0D0] flex items-center justify-center text-sm shrink-0">check</span>
+          تنبيهات فورية قبل مواعيد التسليم
+        </li>
+      </ul>
+    </div>
+
+    <div class="relative z-10 text-[11.5px] text-[#6E8A94]">
+      <img src="assets/icons/alaman.png" alt="لوجو أكاديمي" class="w-4 h-4 pl-1 pb-0.41 object-contain inline-block ms-1" />
+      شركة الأمان الرقمي الجديد  — جميع الحقوق محفوظة  © 2026   
+    </div>
+  </aside>
+
+  <!-- ============ Form panel ============ -->
+  <main class="flex items-center justify-center p-6 sm:p-10" style="background-image:radial-gradient(#D6E3E1 1.4px, transparent 1.4px); background-size:22px 22px;">
+    <div class="w-full max-w-[400px] bg-white border border-[#E4EEEC] rounded-[26px] shadow-[0_10px_26px_-16px_rgba(11,32,54,.25)] p-8 sm:p-9">
+
+      <div class="mb-7">
+        <h2 class="font-display font-extrabold text-[22px] text-[#0B2036] mb-1.5">تسجيل الدخول</h2>
+        <p class="text-[12.5px] text-[#8AA0A4] font-medium">أهلاً بعودتك، سجّل الدخول لمتابعة مهامك الأكاديمية</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-[18px]">
+
+        <!-- الرقم الجامعي / البريد -->
+        <div class="flex flex-col gap-[7px]">
+          <label for="username" class="text-xs font-bold text-[#4B6670]">الرقم الجامعي أو البريد الإلكتروني</label>
+          <div class="relative">
+            <span class="msym absolute top-1/2 -translate-y-1/2 right-4 text-[#8AA0A4] text-lg">person</span>
+            <input 
+              id="username" 
+              formControlName="username" 
+              type="text" 
+              autocomplete="username"
+              placeholder="مثال: 20231045"
+              class="w-full bg-[#F5FAF9] border-[1.5px] border-[#E4EEEC] rounded-2xl pr-11 pl-4 py-3 text-[13px] text-[#0C2430] placeholder:text-[#8AA0A4] focus:outline-none focus:border-[#0E9C90] focus:ring-4 focus:ring-[#E2F5F2] transition" />
+          </div>
+
+          <!-- رسائل أخطاء حقل اسم المستخدم -->
+          @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
+            <span class="text-red-500 text-[11px] font-bold mt-1 block">
+              @if (loginForm.get('username')?.hasError('required')) {
+                يرجى تعبئة حقل الرقم الجامعي
+              } @else if (loginForm.get('username')?.hasError('minlength') || loginForm.get('username')?.hasError('maxlength')) {
+                يجب أن يكون الرقم الجامعي مكوناً من 4 إلى 30 حرفًا
+              }
+            </span>
+          }
+        </div>
+
+        <!-- كلمة المرور -->
+        <div class="flex flex-col gap-[7px]">
+          <div class="flex items-center justify-between">
+            <label for="password" class="text-xs font-bold text-[#4B6670]">كلمة المرور</label>
+            <a href="#" class="text-[11.5px] font-bold text-[#0E9C90] hover:underline">نسيت كلمة المرور؟</a>
+          </div>
+          <div class="relative">
+            <span class="msym absolute top-1/2 -translate-y-1/2 right-4 text-[#8AA0A4] text-lg">lock</span>
+            <input 
+              id="password" 
+              formControlName="password" 
+              type="password" 
+              autocomplete="current-password"
+              placeholder="••••••••"
+              class="w-full bg-[#F5FAF9] border-[1.5px] border-[#E4EEEC] rounded-2xl pr-11 pl-11 py-3 text-[13px] text-[#0C2430] placeholder:text-[#8AA0A4] focus:outline-none focus:border-[#0E9C90] focus:ring-4 focus:ring-[#E2F5F2] transition" />
+          </div>
+
+          <!-- رسائل أخطاء حقل كلمة المرور -->
+          @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched ) {
+            <span class="text-red-500 text-[11px] font-bold mt-1 block">
+              @if (loginForm.get('password')?.hasError('required')) {
+                يرجى تعبئة حقل كلمة المرور
+              } @else if (loginForm.get('password')?.hasError('minlength')) {
+                كلمة المرور يجب أن تكون 4 أحرف على الأقل
+              }
+            </span>
+          }
+        </div>
+
+        <!-- زر الإرسال -->
+        <button 
+          type="submit" 
+          [disabled]="isLoading()"
+          class="mt-1 w-full flex items-center justify-center gap-2 font-display font-extrabold text-sm text-white bg-gradient-to-br from-[#17BDAF] to-[#08746A] rounded-[15px] py-3.5 shadow-[0_14px_24px_-10px_rgba(14,156,144,.55)] hover:brightness-105 active:brightness-95 transition disabled:opacity-50">
+          <span>{{ isLoading() ? 'جاري التحقق...' : 'تسجيل الدخول' }}</span>
+          <span class="msym text-lg">arrow_back</span>
+        </button>
+
+        <!-- رسالة الخطأ القادمة من السيرفر -->
+        @if (errorMessage()) {
+          <div class="bg-red-50 border border-red-200 text-red-600 p-3 rounded-xl text-center text-xs font-bold mt-1">
+            {{ errorMessage() }}
+          </div>
+        }
+        
+        <p class="text-center text-xs text-[#8AA0A4] font-medium">
+          ليس لديك حساب؟
+          <a href="#" class="text-[#0E9C90] font-bold hover:underline">تواصل مع الشؤون الأكاديمية</a>
+        </p>
+      </form>
+    </div>
+  </main>
+</body>
